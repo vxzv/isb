@@ -3,11 +3,12 @@
     <meta charset="utf-8" />
     <script src="https://unpkg.com/three@0.147.0/build/three.min.js"></script>
     <script src="https://unpkg.com/three@0.147.0/examples/js/controls/OrbitControls.js"></script>
+    <script src="https://unpkg.com/three@0.147.0/examples/js/loaders/GLTFLoader.js"></script>    
     <script>
       // ページの読み込みを待つ
       window.addEventListener('DOMContentLoaded', init);
 
-      function init() {
+      async function init() {
         // サイズを指定
         const width  = window.innerWidth;
         const height = window.innerHeight;
@@ -16,6 +17,7 @@
         const canvasElement = document.querySelector('#myCanvas');
         const renderer = new THREE.WebGLRenderer({
           canvas: canvasElement,
+          //alpha:true
         });
         renderer.setSize(width, height);
 
@@ -38,15 +40,27 @@
         // カメラコントローラーを作成
         const controls = new THREE.OrbitControls(camera, canvasElement);
 
+        //cube
         // 形状とマテリアルからメッシュを作成します
         const mesh = new THREE.Mesh(new THREE.BoxGeometry(300, 300, 300), new THREE.MeshNormalMaterial());
         scene.add(mesh);
+        
+        //hand
+        // GLTF形式のモデルデータを読み込む
+        const loader = new THREE.GLTFLoader();
+        // GLTFファイルのパスを指定
+        const objects = await loader.loadAsync('./hand9.glb');
+        // 読み込み後に3D空間に追加
+        const model = objects.scene;
+        scene.add(model);
+
+        model.scale.set(30, 30, 30); // 大きさ30倍に拡大
 
         tick();
 
         // 毎フレーム時に実行されるループイベントです
         function tick() {
-          mesh.rotation.y += 0.002;
+          model.rotation.y += 0.002;
           // レンダリング
           renderer.render(scene, camera);
           requestAnimationFrame(tick);
@@ -54,8 +68,10 @@
       }
       
     </script>
+    <style>body{margin: 0px; padding: 0px;}</style>
   </head>
   <body>
+      <h1>title</h1>
     <canvas id="myCanvas"></canvas>
   </body>
 </html>
