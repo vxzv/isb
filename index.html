@@ -33,10 +33,10 @@
 	    scene.add(ambLight);
 
         // カメラを作成
-        const camera = new THREE.PerspectiveCamera(45, width / height);
+        const camera = new THREE.PerspectiveCamera(35, width / height);
 
         // カメラの初期座標を設定
-        camera.position.set(-750, 600, 750);
+        camera.position.set(-750, 750, 750);
 
         // カメラコントローラーを作成
         const controls = new THREE.OrbitControls(camera, canvasElement);
