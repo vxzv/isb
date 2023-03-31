@@ -69,10 +69,35 @@
       }
       
     </script>
-    <style>body{margin: 0px; padding: 0px;}</style>
+    <style>
+        body{
+            margin: 0px; 
+            padding: 0px;
+        }
+        #container{
+            width:600px;
+            height: 600px;
+            position: relative;
+        }
+        #container .box{
+		    position: absolute;
+		    left:30px;
+		    top: 10%;
+		    color: #fff;
+		    width: 100%;
+	    }
+	    #container h1{
+		    font-size:50px;
+		    font-weight: bold;
+	    }
+    </style>
   </head>
   <body>
-      <h1>title</h1>
+      <div id="container">
+          <div class="box">
+        <h1>vxvx.github.io</h1>
+          </div>
     <canvas id="myCanvas"></canvas>
+        </div>
   </body>
 </html>
