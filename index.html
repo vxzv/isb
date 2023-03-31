@@ -1,15 +1,61 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <style>body{margin: 0px; padding: 0px;}</style>
-    <title>isb</title>
-</head>
-<body>
-    <div id="three"></div>
-    <script src="./three.min.js" defer></script>
-    <script src="./OrbitControls.js" ></script>
-    <script src="./GLTFLoader.js" defer></script>
-	<script src="./index.js" defer></script>
-</body>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <script src="https://unpkg.com/three@0.147.0/build/three.min.js"></script>
+    <script src="https://unpkg.com/three@0.147.0/examples/js/controls/OrbitControls.js"></script>
+    <script>
+      // ページの読み込みを待つ
+      window.addEventListener('DOMContentLoaded', init);
+
+      function init() {
+        // サイズを指定
+        const width  = window.innerWidth;
+        const height = window.innerHeight;
+
+        // レンダラーを作成
+        const canvasElement = document.querySelector('#myCanvas');
+        const renderer = new THREE.WebGLRenderer({
+          canvas: canvasElement,
+        });
+        renderer.setSize(width, height);
+
+        // シーンを作成
+        const scene = new THREE.Scene();
+
+        // 3-1, ライトを作る1 (単光の光)
+        let dirLight = new THREE.DirectionalLight(0xffffff, 1);
+	    dirLight.position.set(5,3,5);// 光の向き
+	    scene.add(dirLight);
+	    // 3-2, ライトを作る2 (いい感じの光)
+	    let ambLight = new THREE.AmbientLight(0x333333);
+	    scene.add(ambLight);
+
+        // カメラを作成
+        const camera = new THREE.PerspectiveCamera(45, width / height);
+        // カメラの初期座標を設定
+        camera.position.set(0, 0, 1000);
+
+        // カメラコントローラーを作成
+        const controls = new THREE.OrbitControls(camera, canvasElement);
+
+        // 形状とマテリアルからメッシュを作成します
+        const mesh = new THREE.Mesh(new THREE.BoxGeometry(300, 300, 300), new THREE.MeshNormalMaterial());
+        scene.add(mesh);
+
+        tick();
+
+        // 毎フレーム時に実行されるループイベントです
+        function tick() {
+          mesh.rotation.y += 0.002;
+          // レンダリング
+          renderer.render(scene, camera);
+          requestAnimationFrame(tick);
+        }
+      }
+      
+    </script>
+  </head>
+  <body>
+    <canvas id="myCanvas"></canvas>
+  </body>
 </html>
