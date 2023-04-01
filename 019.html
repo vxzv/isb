@@ -71,7 +71,7 @@
       }
     </script>
     <script>
-      $(function(){
+      $(function(){});
     $(window).on('load', function(){
         $('.loading').delay(1500).fadeOut(300);
     });
@@ -79,7 +79,6 @@
         $('.loading').delay(1000).fadeOut(700);
     }
     setTimeout('stopload()',10000);
-});
     </script>
     <style>
         .loading {
@@ -91,7 +90,7 @@
     background: #000;
     z-index: 9999;
 }
- 
+
 .animation {
     position: absolute;
     top: 50%;
@@ -169,6 +168,7 @@
   <body>
     <div class="loading">
       <div class="animation"></div>
+      
   </div>
 
       <div id="container">
