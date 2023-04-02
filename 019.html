@@ -6,71 +6,57 @@
     <script src="https://unpkg.com/three@0.147.0/examples/js/loaders/GLTFLoader.js"></script>    
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script>
-      
-      // ページの読み込みを待つ
+       
       window.addEventListener('DOMContentLoaded', init);
 
       async function init() {
-        // サイズを指定
         const width  = window.innerWidth;
         const height = window.innerHeight;
 
-        // レンダラーを作成
         const canvasElement = document.querySelector('#myCanvas');
         const renderer = new THREE.WebGLRenderer({
           canvas: canvasElement,
-          //alpha:true
+              // 物体の輪郭がガクガクするのを抑える
+    antialias: true
         });
         renderer.setSize(width, height);
 
-        // シーンを作成
         const scene = new THREE.Scene();
-
-        // 3-1, ライトを作る1 (単光の光)
+   
         let dirLight = new THREE.DirectionalLight(0xffffff, 1);
-	      dirLight.position.set(5,3,5);// 光の向き
+	      dirLight.position.set(5,3,5);
 	      scene.add(dirLight);
-	      // 3-2, ライトを作る2 (いい感じの光)
+
 	      let ambLight = new THREE.AmbientLight(0x333333);
 	      scene.add(ambLight);
 
-        // カメラを作成
         const camera = new THREE.PerspectiveCamera(40, width / height);
 
-        // カメラの初期座標を設定
         camera.position.set(-750, 750, 750);
 
-        // カメラコントローラーを作成
         const controls = new THREE.OrbitControls(camera, canvasElement);
         controls.enableZoom = false;
         controls.autoRotate = true;
-        //cube
-        // 形状とマテリアルからメッシュを作成します
-        //const mesh = new THREE.Mesh(new THREE.BoxGeometry(300, 300, 300), new THREE.MeshNormalMaterial());
-        //scene.add(mesh);       
+     
         //hand
-        // GLTF形式のモデルデータを読み込む
         const loader = new THREE.GLTFLoader();
-        // GLTFファイルのパスを指定
         const objects = await loader.loadAsync('./hand9.glb');
-        // 読み込み後に3D空間に追加
         const model = objects.scene;
         scene.add(model);
 
-        model.scale.set(30, 30, 30); // 大きさ30倍に拡大
+        model.scale.set(30, 30, 30); 
 
         tick();
 
-        // 毎フレーム時に実行されるループイベントです
         function tick() {
           model.rotation.y += 0.002;
-          // レンダリング
           renderer.render(scene, camera);
           requestAnimationFrame(tick);
+          
         }
       }
-    </script>
-    <script>
+      
+      //loading
         $(function(){});
         $(window).on('load', function(){
            $('.loading').delay(700).fadeOut(250);
@@ -79,6 +65,7 @@
         $('.loading').delay(1000).fadeOut(700);
     }
         setTimeout('stopload()',10000);
+        
     </script>
 
     <style>
@@ -159,10 +146,22 @@
 	    #container h1{
 		    font-size:50px;
 		    font-weight: bold;
+        user-select: none;
 	    }
         #container a{
             text-decoration: none;
             color:inherit;
+            user-select: none;
+        }
+        #container a:hover{
+            text-decoration: none;
+            color:gray;
+            user-select: none;
+        }
+        #container p{
+            text-decoration: none;
+            color:inherit;
+            user-select: none;
         }
     </style>
   </head>
@@ -174,13 +173,13 @@
 
       <div id="container">
           <div class="box">
-        <h1>vxvx.github.io</h1>
+        <h1><a href="index.html">vxzv.github.io</a></h1>
         <p>// isb<br>
         <a href="https://twitter.com/vxzxzxzxv">// twitter:@vxzxzxzxv</a><br>
         <br><br>
         <a href="019.html">// 019 hand</a><br>
         <a href="019.html">// 020 -</a><br><br>
-        <a href="index.html">// vxvz.github.io</a><br>
+        <a href="index.html">// home</a><br>
         </p>
       </div>
     <canvas id="myCanvas"></canvas>

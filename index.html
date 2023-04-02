@@ -10,43 +10,46 @@
       window.addEventListener('DOMContentLoaded', init);
 
       async function init() {
-        // サイズを指定
+        // size
         const width  = window.innerWidth;
         const height = window.innerHeight;
 
-        // レンダラーを作成
+        // renderer
         const canvasElement = document.querySelector('#myCanvas');
         const renderer = new THREE.WebGLRenderer({
           canvas: canvasElement,
           //alpha:true
+        // 物体の輪郭がガクガクするのを抑える
+        antialias: true
         });
         renderer.setSize(width, height);
 
-        // シーンを作成
+        // scene
         const scene = new THREE.Scene();
 
-        // 3-1, ライトを作る1 (単光の光)
+        // light1
         let dirLight = new THREE.DirectionalLight(0xffffff, 1);
-	    dirLight.position.set(5,3,5);// 光の向き
+	    dirLight.position.set(5,3,5);
 	    scene.add(dirLight);
-	    // 3-2, ライトを作る2 (いい感じの光)
+	    // light2
 	    let ambLight = new THREE.AmbientLight(0x333333);
 	    scene.add(ambLight);
 
-        // カメラを作成
+        // camera
         const camera = new THREE.PerspectiveCamera(40, width / height);
 
-        // カメラの初期座標を設定
+        // 初期座標
         camera.position.set(-750, 750, 750);
 
-        // カメラコントローラーを作成
+        // camera-control
         const controls = new THREE.OrbitControls(camera, canvasElement);
         controls.enableZoom = false;
         controls.autoRotate = true;
+
         //cube
-        // 形状とマテリアルからメッシュを作成します
         const mesh = new THREE.Mesh(new THREE.BoxGeometry(300, 300, 300), new THREE.MeshNormalMaterial());
-        scene.add(mesh);       
+        scene.add(mesh);   
+
         //hand
         // GLTF形式のモデルデータを読み込む
         const loader = new THREE.GLTFLoader();
@@ -60,7 +63,7 @@
 
         tick();
 
-        // 毎フレーム時に実行されるループイベントです
+        // 毎フレーム時に実行されるループイベント
         function tick() {
           model.rotation.y += 0.002;
           // レンダリング
@@ -68,22 +71,8 @@
           requestAnimationFrame(tick);
         }
       }
-// 画面リサイズ
-onResize();
-	window.addEventListener('resize', onResize);
 
-	function onResize() {
-	  var width = window.innerWidth;
-	  var height = window.innerHeight;
-
-	  renderer.setPixelRatio(window.devicePixelRatio);
-	  renderer.setSize(width, height);
-
-	  camera.aspect = width / height;
-	  camera.updateProjectionMatrix();
-	}
-    </script>
-    <script>
+        //loading
         $(function(){});
         $(window).on('load', function(){
             $('.loading').delay(700).fadeOut(250);
@@ -94,7 +83,7 @@ onResize();
         setTimeout('stopload()',10000);
     </script>
     <style>
-                .loading {
+        .loading {
         position: fixed;
         width: 100vw;
         height: 100vh;
@@ -111,6 +100,7 @@ onResize();
             transform: translate(-50%, -50%);
             color: #ffffff;
         }
+
         .animation,
         .animation:before,
         .animation:after {
@@ -152,6 +142,7 @@ onResize();
                 height: 5em;
             }
         }
+
         body{
             margin: 0px; 
             padding: 0px;
@@ -171,10 +162,22 @@ onResize();
 	    #container h1{
 		    font-size:50px;
 		    font-weight: bold;
+            user-select: none;
 	    }
         #container a{
             text-decoration: none;
             color:inherit;
+            user-select: none;
+        }
+        #container a:hover{
+            text-decoration: none;
+            color:gray;
+            user-select: none;
+        }
+        #container p{
+            text-decoration: none;
+            color:inherit;
+            user-select: none;
         }
     </style>
   </head>
@@ -184,13 +187,12 @@ onResize();
       </div>
       <div id="container">
           <div class="box">
-        <h1>vxvx.github.io</h1>
+        <h1><a href="index.html">vxzv.github.io</a></h1>
         <p>// isb<br>
         <a href="https://twitter.com/vxzxzxzxv">// twitter:@vxzxzxzxv</a><br>
         <br><br>
         <a href="019.html">// 019 hand</a><br>
         <a href="019.html">// 020 -</a><br><br>
-        <a href="index.html">// vxvz.github.io</a><br>
         </p>
       </div>
     <canvas id="myCanvas"></canvas>
