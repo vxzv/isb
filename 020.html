@@ -7,7 +7,7 @@
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="script.js"></script>
     <link rel="stylesheet" href="style.css">
-
+    
     <script>
        
       window.addEventListener('DOMContentLoaded', init);
@@ -19,7 +19,8 @@
         const canvasElement = document.querySelector('#myCanvas');
         const renderer = new THREE.WebGLRenderer({
           canvas: canvasElement,
-          antialias: true
+        // 物体の輪郭がガクガクするのを抑える
+        antialias: true
         });
         renderer.setSize(width, height);
 
@@ -42,7 +43,7 @@
      
         //hand
         const loader = new THREE.GLTFLoader();
-        const objects = await loader.loadAsync('./hand9.glb');
+        const objects = await loader.loadAsync('./brain.glb');
         const model = objects.scene;
         scene.add(model);
 
