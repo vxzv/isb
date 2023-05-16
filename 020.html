@@ -3,7 +3,8 @@
     <meta charset="utf-8" />
     <script src="https://unpkg.com/three@0.147.0/build/three.min.js"></script>
     <script src="https://unpkg.com/three@0.147.0/examples/js/controls/OrbitControls.js"></script>
-    <script src="https://unpkg.com/three@0.147.0/examples/js/loaders/GLTFLoader.js"></script>    
+    <script src="https://unpkg.com/three@0.147.0/examples/js/loaders/GLTFLoader.js"></script>  
+    <script src="https://unpkg.com/three@0.147.0/examples/js/loaders/DRACOLoader"></script>  
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="script.js"></script>
     <link rel="stylesheet" href="style.css">
@@ -41,8 +42,11 @@
         controls.enableZoom = false;
         controls.autoRotate = true;
      
-        //hand
+        //brain DRACO圧縮しているのでDRACOLoader
         const loader = new THREE.GLTFLoader();
+        const dracoLoader = new THREE.DRACOLoader();
+        dracoLoader.setDecoderPath('https://unpkg.com/three@0.147.0/examples/js/libs/draco/');
+        loader.setDRACOLoader(dracoLoader);
         const objects = await loader.loadAsync('./brain.glb');
         const model = objects.scene;
         scene.add(model);
