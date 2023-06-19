@@ -74,11 +74,13 @@
           renderer.render(scene, camera);
           requestAnimationFrame(tick);
         }
+	// resize
+	      
 	onResize();
 
-      window.addEventListener('resize', onResize);
+      	window.addEventListener('resize', onResize);
 
-      function onResize(){
+      	function onResize(){
         const width = window.innerWidth;
         const height = window.innerHeight;
 
@@ -88,6 +90,7 @@
         camera.aspect = width / height;
         camera.updateProjectionMatrix();
       }
+	      
       }
 	    
       
