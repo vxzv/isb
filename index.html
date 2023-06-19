@@ -74,9 +74,7 @@
           renderer.render(scene, camera);
           requestAnimationFrame(tick);
         }
-      }
-	    
-      onResize();
+	onResize();
 
       window.addEventListener('resize', onResize);
 
@@ -90,6 +88,9 @@
         camera.aspect = width / height;
         camera.updateProjectionMatrix();
       }
+      }
+	    
+      
     </script>
     
   </head>
